@@ -30,6 +30,7 @@ namespace TryCatch
     {
         static void Main()
         {
+            /*
             try
             {
                 int i = 1;
@@ -47,6 +48,18 @@ namespace TryCatch
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.HelpLink);
                 Console.WriteLine(ex.Source);
+            }
+*/
+            
+            // http = 80, https = 443, ftp = 21
+            string online = Serveronline.ServerActive("spotibo.com", 443);
+            if (online == "Server je online")
+            {
+                Console.WriteLine(online);
+            }
+            else
+            {
+                Console.WriteLine(online);
             }
         }
     }
