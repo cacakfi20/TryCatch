@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 
 // DĚLENÍ NULOU 
 
@@ -24,10 +25,12 @@ while (program)
 }
 */ 
 
+using System.Net;
 namespace TryCatch
 {
     class Program
     {
+        
         static void Main()
         {
             /*
@@ -52,14 +55,26 @@ namespace TryCatch
 */
             
             // http = 80, https = 443, ftp = 21
-            string online = Serveronline.ServerActive("spotibo.com", 443);
-            if (online == "Server je online")
+            string URL = "github.com";
+            string online = Serveronline.ServerActive(URL, 443);
+            Console.WriteLine(online);
+            
+            //
+            
+            WebRequest request = WebRequest.Create(URL);
+            request.Method = "HEAD";
+            try
             {
-                Console.WriteLine(online);
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Use data for success case
+                }
             }
-            else
+            catch (WebException ex)
             {
-                Console.WriteLine(online);
+                HttpWebResponse errorResponse = (HttpWebResponse) ex.Response;
+                HttpStatusCode status = errorResponse.StatusCode;
+                // etc
             }
         }
     }
