@@ -55,26 +55,23 @@ namespace TryCatch
 */
             
             // http = 80, https = 443, ftp = 21
-            string URL = "github.com";
-            string online = Serveronline.ServerActive(URL, 443);
+            /*string online = Serveronline.ServerActive(url, 443);
             Console.WriteLine(online);
-            
+            */
             //
             
-            WebRequest request = WebRequest.Create(URL);
+            string url = "https://www.youtube.com/";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "HEAD";
+            request.AllowAutoRedirect = false;
             try
             {
-                using (WebResponse response = request.GetResponse())
-                {
-                    // Use data for success case
-                }
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Console.WriteLine("Server status: " + response.StatusCode);
             }
             catch (WebException ex)
             {
-                HttpWebResponse errorResponse = (HttpWebResponse) ex.Response;
-                HttpStatusCode status = errorResponse.StatusCode;
-                // etc
+                Console.WriteLine("Error connecting to server: " + ex.Status);
             }
         }
     }
